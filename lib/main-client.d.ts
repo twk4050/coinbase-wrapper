@@ -1,0 +1,33 @@
+import BaseRestClient from './util/BaseRestClient';
+import { SubmitOrderParams, SubmitOrderResponse, CancelOrdersParams, CancelOrderResponse, ListOrdersResponse, GetOrderResponse } from './types/order';
+import { GetAccountResponse, ListAccountsResponse } from './types/accounts';
+import { SendMoneyParams, ListTransactionResponse, GetTransactionResponse, WithdrawCoinsResponse } from './types/transaction';
+import { CandleParams, Granularity, ListProductResponse, MarketTradesParams, MarketTradesResponse, Product, ProductBookParams, ProductBookResponse, ProductCandleResponse } from './types/products';
+import { AxiosRequestConfig } from 'axios';
+import { IClientOptions } from './types/client';
+import { UnixTimeResponse } from './types/public';
+export declare class MainClient extends BaseRestClient {
+    assetUuidMappings: any;
+    constructor(_clientOptions: IClientOptions, _axiosConfig: AxiosRequestConfig, assetUuidMappings?: any);
+    listAccounts(): Promise<ListAccountsResponse>;
+    getAccount(account_uuid: string): Promise<GetAccountResponse>;
+    getProductBook(params: ProductBookParams): Promise<ProductBookResponse>;
+    private listProducts;
+    listSpotProducts(): Promise<ListProductResponse>;
+    getProduct(product_id: string): Promise<Product>;
+    getProductCandles(product_id: string, params: CandleParams): Promise<ProductCandleResponse>;
+    getLatest300ProductCandles(product_id: string, granularity: Granularity): Promise<ProductCandleResponse>;
+    getMarketTrades(product_id: string, params: MarketTradesParams): Promise<MarketTradesResponse>;
+    submitNewOrder(params: SubmitOrderParams): Promise<SubmitOrderResponse>;
+    cancelOrders(params: CancelOrdersParams): Promise<CancelOrderResponse>;
+    getOpenOrders(): Promise<ListOrdersResponse>;
+    getOrder(orderId: string): Promise<GetOrderResponse>;
+    getUnixTime(): Promise<UnixTimeResponse>;
+    listAddresses(asset: string): Promise<any>;
+    withdrawCoins(asset: string, params: SendMoneyParams): Promise<WithdrawCoinsResponse>;
+    listTransactions(asset: string): Promise<ListTransactionResponse>;
+    getTransaction(asset: string, transactionId: string): Promise<GetTransactionResponse>;
+    initAssetUuidMapping(): Promise<void>;
+    getAvailBalance(asset?: string): Promise<any>;
+    getResourcePath(resourcePath: string): Promise<any>;
+}
